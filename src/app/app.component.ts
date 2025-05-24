@@ -1,12 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: `
+    <div style="text-align:center; margin-top: 50px;">
+      <h1>Pound to Kilogram Converter</h1>
+
+      <label for="pounds">Pounds:</label>
+      <input type="number" [(ngModel)]="pounds" id="pounds" />
+
+      <p>{{ pounds }} lbs = {{ kilograms | number : '1.2-2' }} kg</p>
+    </div>
+  `,
 })
 export class AppComponent {
-  title = 'unit-converter';
+  pounds: number = 0;
+  get kilograms(): number {
+    return this.pounds * 0.453592;
+  }
 }
